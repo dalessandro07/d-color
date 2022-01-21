@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Paleta de Colores</title>
+        <!-- FONT AWESOME ICONS -->
+        <script src="https://kit.fontawesome.com/76fb205747.js" crossorigin="anonymous"></script>
+        <!-- CSS -->
+        <!-- BOOTSTRAP CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
+        <!-- ANIMATE CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+        <!-- MI CSS -->
+        <link rel="stylesheet" href="css/styles.css" />
+    </head>
+    <body>
+        <div class="root">
+            <header class="cabecera-nav">
+                <nav class="navbar navbar-expand-lg navbar-light">
+                    <div class="container-fluid d-flex justify-content-between">
+                        <div class="brand-title">
+                            <a class="navbar-brand" href="index.html"><i class="fas fa-palette me-2 icono-header"></i><b class="title-header">D'Color</b></a>
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                        </div>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0 w-100 justify-content-end">
+                                <li class="nav-item">
+                                    <a class="nav-link" id="nueva-paleta" href="index.html#paleta-container">Nueva Paleta</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="paletas-guardadas" href="#">Paletas Guardadas</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="register" href="#">Registrarse</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </header>
+
+            <main>
+                <div class="index">
+                    <div class="inicio">
+                        <div class="contenedor-inicio">
+                            <div class="texto-inicio">
+                                <h1 class="title-inicio">D'Color</h1>
+                                <b class="parrafo-inicio">¡El generador de paletas más rápido de la web!</b>
+                            </div>
+                            <div class="banner">
+                                <img class="banner-principal" src="./assets/img/undraw_color_palette_yamk.svg" alt="" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contenedor-paleta" id="paleta-container">
+                        <div class="contenedor-opciones-generales">
+                            <i class="fas fa-plus" title="Agregar Color"></i>
+                            <i class="fas fa-save" title="Guardar Paleta"></i>
+                            <i class="fas fa-trash-alt" title="Limpiar Paleta ⚠️"></i>
+                            <i class="fas fa-palette fa-palette2" title="Crear Paleta al Azar"></i>
+                        </div>
+                        <div class="contenedor-colores">
+                            <div class="contenedor-color" data-id="0">
+                                <div class="opciones">
+                                    <i class="opcionesMenores fas fa-times" title="Eliminar Color"></i>
+                                    <i class="opcionesMenores far fa-clone" title="Copiar Color"></i>
+                                    <i class="opcionesMenores fas fa-dice" title="Color al Azar"></i>
+                                    <i class="opcionesMenores fas fa-blender" title="Mezclar Colores"></i>
+                                </div>
+                                <div class="contenedor-hex">
+                                    <h4 class="color-hex">#FFFFFF</h4>
+                                    <input style="display: none" type="color" name="color-picker" class="picker form-control-color" />
+                                    <div class="d-flex contenedor-mixing flex-column">
+                                        <div class="d-flex">
+                                            <input placeholder="Color 1" style="display: none" type="text" class="mixing color-mix-1" />
+                                            <i style="display: none" class="fas fa-pencil-alt"></i>
+                                        </div>
+                                        <div class="d-flex">
+                                            <input placeholder="Color 2" style="display: none" type="text" class="mixing color-mix-2" />
+                                            <i style="display: none" class="fas fa-pencil-alt"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <i style="display: none" class="fas fa-arrow-up"></i>
+                    </div>
+                </div>
+
+                <div class="register-page" style="display: none">
+                    <div class="contenedor-formulario container">
+                        <i class="fas fa-palette me-2 icono-form"></i>
+                        <form class="form">
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Correo Electrónico</label>
+                                <input required type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                                <div id="emailHelp" class="form-text">No compartiremos tu correo con nadie más.</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">Contraseña</label>
+                                <input minlength="6" maxlength="28" required type="password" class="form-control" id="exampleInputPassword1" />
+                            </div>
+                            <div class="mb-3 form-check d-flex justify-content-center">
+                                <input required type="checkbox" class="form-check-input" id="exampleCheck1" />
+                                <label class="form-check-label mx-3" for="exampleCheck1">Acepto los términos y condiciones</label>
+                            </div>
+                            <button type="submit" class="btn btn-warning" id="submit-reg">Registrarse</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="paletas-guardadas-page" style="display: none">
+                    <div class="d-flex justify-content-center">
+                        <h2 class="text-center mt-5">Paletas Guardadas</h2>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-end" style="width: 97vw">
+                        <i class="fas fa-trash m-3 borrarPaletas" title="Borrar Paletas ⚠️"></i>
+                        <i class="fas fa-sync-alt m-3 actualizarPaletas" title="Actualizar Paletas"></i>
+                    </div>
+                    <div class="contenedor-paletas-guardadas">
+                        <b class="texto-guardadas">¡No tienes paletas guardadas!</b>
+
+                        <div class="paletas-guardadas"></div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- JAVASCRIPT -->
+
+        <!-- SORTABLE JS -> DRAG AND DROP -->
+        <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+        <!-- TINY COLOR -->
+        <script type="text/javascript" src="./js/tinycolor.js"></script>
+        <script type="text/javascript">
+            var color = tinycolor("red");
+        </script>
+        <!-- SWEET ALERT -->
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <!-- JQUERY -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <!-- JQUERY UI -->
+        <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js" integrity="sha256-hlKLmzaRlE8SCJC1Kw8zoUbU8BxA+8kR3gseuKfMjxA=" crossorigin="anonymous"></script>
+        <!-- BOOTSTRAP -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+        <!-- MI JS -->
+        <script src="js/main.js"></script>
+        <script src="js/register.js"></script>
+        <script src="js/guardadas.js"></script>
+        <script src="js/drag.js"></script>
+    </body>
+</html>
