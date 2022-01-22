@@ -398,6 +398,8 @@ $(".contenedor-color").on("click", ".opciones", function () {
 
     colorHex.fadeIn("fast");
     inputs.fadeOut("fast");
+
+    console.log("click");
 });
 
 /* COPIAR COLOR */

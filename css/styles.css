@@ -216,6 +216,11 @@ input:focus {
 
 /* ICONOS */
 
+.opcionesMenores {
+    width: 10%;
+    margin: 1rem auto;
+}
+
 .borrarPaletas,
 .actualizarPaletas {
     color: var(--gris);
