@@ -43,7 +43,7 @@ function recargarPaletas() {
     }
 
     localStorage.setItem("recargado", 0);
-    localStorage.removeItem("indice");
+    // localStorage.removeItem("indice");
 }
 
 recargarPaletas();
@@ -102,28 +102,32 @@ function eliminarLocalStorage(indice) {
     }
 }
 
-if (localStorage.getItem("paleta")) {
-    let paleta = JSON.parse(localStorage.getItem("paleta"));
+function respaldarLocalStorage() {
+    if (localStorage.getItem("paleta")) {
+        let paleta = JSON.parse(localStorage.getItem("paleta"));
 
-    $(".contenedor-colores").children().remove();
+        $(".contenedor-colores").children().remove();
 
-    for (const color of paleta) {
-        $(".contenedor-colores").append(contenedorColorDefault.clone());
-        let contenedorColor = $(".contenedor-colores").children();
+        for (const color of paleta) {
+            $(".contenedor-colores").append(contenedorColorDefault.clone());
+            let contenedorColor = $(".contenedor-colores").children();
 
-        let colorHex = contenedorColor.find(".color-hex");
-        let iconos = contenedorColor.find(".opciones");
+            let colorHex = contenedorColor.find(".color-hex");
+            let iconos = contenedorColor.find(".opciones");
 
-        $(contenedorColor[color.id]).css("background-color", color.color);
-        $(colorHex[color.id]).text(color.color);
+            $(contenedorColor[color.id]).css("background-color", color.color);
+            $(colorHex[color.id]).text(color.color);
 
-        detectaColor(color.color, $(colorHex[color.id]), $(iconos[color.id]));
+            detectaColor(color.color, $(colorHex[color.id]), $(iconos[color.id]));
 
-        /* ASIGNANDO DATA-ID */
+            /* ASIGNANDO DATA-ID */
 
-        $(".contenedor-color:last").attr("data-id", $(".contenedor-color:last").index());
+            $(".contenedor-color:last").attr("data-id", $(".contenedor-color:last").index());
+        }
     }
 }
+
+respaldarLocalStorage();
 
 /* FUNCIONES MAYORES */
 
@@ -251,6 +255,8 @@ $(".fa-save").on("click", function () {
                         icon: "success",
                         title: "Paleta editada con éxito!",
                     });
+
+                    localStorage.removeItem("indice");
                 } else {
                     let comprobar = paletasGuardadas.find((col) => col[0].color === paleta[0].color);
 
@@ -392,16 +398,6 @@ $(".contenedor-colores").on("click", ".color-hex", function () {
 
 /* FUNCIONES MENORES INDIVIDUALES */
 
-$(".contenedor-color").on("click", ".opciones", function () {
-    let colorHex = $(this).parents(".contenedor-color").find(".color-hex");
-    let inputs = $(this).parents(".contenedor-color").find("input");
-
-    colorHex.fadeIn("fast");
-    inputs.fadeOut("fast");
-
-    console.log("click");
-});
-
 /* COPIAR COLOR */
 
 $(".contenedor-colores").on("click", ".fa-clone", function () {
@@ -464,15 +460,18 @@ $(".contenedor-colores").on("click", ".fa-times", function () {
 
     if (contenedoresTotales.length > 1) {
         contenedorColor.remove();
+        let idThis = contenedoresTotales.index(contenedorColor);
+        eliminarLocalStorage(idThis);
     } else {
         contenedorColor.css("background-color", "#FFFFFF");
         colorHex.css("color", "#000000");
         iconos.css("color", "#000000");
         colorHex.text("#FFFFFF");
-    }
 
-    let idThis = contenedoresTotales.index(contenedorColor);
-    eliminarLocalStorage(idThis);
+        let paleta = JSON.parse(localStorage.getItem("paleta"));
+        paleta[0].color = "#FFFFFF";
+        localStorage.setItem("paleta", JSON.stringify(paleta));
+    }
 });
 
 /* COMBINAR COLORES */
@@ -485,57 +484,68 @@ $(".contenedor-colores").on("click", ".fa-blender", function () {
     let contenedorColor = $(this).parents(".contenedor-color");
     let iconos = contenedorColor.find(".opciones");
 
+    let iconoCombinar = $(this);
+
     let mixing = contenedorColor.find(".mixing");
     let pencilEdit = contenedorColor.find(".fa-pencil-alt");
 
     /* MOSTRAR Y ESCONDER */
 
-    contenedorColor.find(".color-hex").fadeOut();
-    mixing.fadeIn("fast");
+    $(this).toggleClass("clicked");
 
-    /* EVENTOS */
+    if (!$(this).hasClass("clicked")) {
+        /* EVENTOS */
 
-    /* CAPTURAR DATOS Y EDITARLOS */
+        contenedorColor.find(".color-hex").fadeOut();
+        mixing.fadeIn("fast");
 
-    mixing.on("input", function () {
-        if ($(this).val().length === 7) {
-            let colorNuevo = tinycolor($(this).val());
-            let esValido = colorNuevo.isValid();
+        /* CAPTURAR DATOS Y EDITARLOS */
 
-            if (esValido) {
-                coloresACombinar.push($(this).val().toUpperCase());
-            } else return;
+        mixing.on("input", function () {
+            if ($(this).val().length === 7) {
+                let colorNuevo = tinycolor($(this).val());
+                let esValido = colorNuevo.isValid();
 
-            $(this).attr("disabled", "disabled");
-            pencilEdit.fadeIn("fast");
+                if (esValido) {
+                    coloresACombinar.push($(this).val().toUpperCase());
+                } else return;
 
-            /* COMBINAR COLORES */
+                $(this).attr("disabled", "disabled");
+                pencilEdit.fadeIn("fast");
 
-            if (coloresACombinar.length === 2) {
-                let colorCombinado = tinycolor
-                    .mix(coloresACombinar[0], coloresACombinar[1], (amount = 50))
-                    .toHexString()
-                    .toUpperCase();
+                /* COMBINAR COLORES */
 
-                contenedorColor.css("background-color", colorCombinado);
-                contenedorColor.find(".color-hex").text(colorCombinado);
-                contenedorColor.find(".color-hex").fadeIn();
+                if (coloresACombinar.length === 2) {
+                    let colorCombinado = tinycolor
+                        .mix(coloresACombinar[0], coloresACombinar[1], (amount = 50))
+                        .toHexString()
+                        .toUpperCase();
 
-                mixing.fadeOut("fast");
-                mixing.val("");
-                mixing.removeAttr("disabled");
-                pencilEdit.fadeOut("fast");
+                    contenedorColor.css("background-color", colorCombinado);
+                    contenedorColor.find(".color-hex").text(colorCombinado);
+                    contenedorColor.find(".color-hex").fadeIn();
 
-                detectaColor(colorCombinado, contenedorColor.find(".color-hex"), iconos);
+                    mixing.fadeOut("fast");
+                    mixing.val("");
+                    mixing.removeAttr("disabled");
+                    pencilEdit.fadeOut("fast");
 
-                /* CAMBIAR LOCAL_STORAGE */
+                    iconoCombinar.addClass("clicked");
 
-                cambiarLocalStorage(contenedorColor, colorCombinado);
+                    detectaColor(colorCombinado, contenedorColor.find(".color-hex"), iconos);
+
+                    /* CAMBIAR LOCAL_STORAGE */
+
+                    cambiarLocalStorage(contenedorColor, colorCombinado);
+                }
             }
-        }
-    });
+        });
 
-    pencilEdit.on("click", function () {
-        mixing.removeAttr("disabled");
-    });
+        pencilEdit.on("click", function () {
+            mixing.removeAttr("disabled");
+        });
+    } else {
+        contenedorColor.find(".color-hex").fadeIn();
+        mixing.fadeOut("fast");
+    }
 });

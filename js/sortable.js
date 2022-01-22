@@ -33,18 +33,4 @@ Sortable.create(lista, {
     },
     /* DAR NOMBRE A LA LISTA */
     group: "lista-colores",
-    /* LOCAL_STORAGE */
-    store: {
-        /* SE GUARDA EL ORDEN DE LA LISTA */
-        set: (sortable) => {
-            const orden = sortable.toArray();
-            localStorage.setItem(sortable.options.group.name, orden.join(","));
-            console.log(orden);
-        },
-        /* OBTENEMOS EL ORDEN DE LA LISTA */
-        get: (sortable) => {
-            const orden = localStorage.getItem(sortable.options.group.name);
-            return orden ? orden.split(",") : [];
-        },
-    },
 });

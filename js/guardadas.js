@@ -8,6 +8,7 @@ $("#paletas-guardadas").click(function () {
 
 $(".actualizarPaletas").on("click", function () {
     localStorage.setItem("recargado", 1);
+    localStorage.removeItem("indice");
     window.location.reload();
 });
 
@@ -41,9 +42,17 @@ if (localStorage.getItem("paletas-guardadas")) {
     /* BORRAR PALETAS */
 
     $(".borrarPaletas").on("click", function () {
-        localStorage.removeItem("paletas-guardadas");
-        localStorage.setItem("recargado", 1);
-        window.location.reload();
+        Swal.fire({
+            title: "¿Quieres eliminar todas las paletas? Esta acción no se puede deshacer",
+            showDenyButton: false,
+            showCancelButton: true,
+            confirmButtonText: "Eliminar",
+            cancelButtonText: "Cancelar",
+        }).then((result) => {
+            localStorage.removeItem("paletas-guardadas");
+            localStorage.setItem("recargado", 1);
+            window.location.reload();
+        });
     });
 
     /* EDITAR PALETA */
@@ -55,6 +64,7 @@ if (localStorage.getItem("paletas-guardadas")) {
             showCancelButton: true,
             confirmButtonText: "Editar",
             denyButtonText: `Eliminar`,
+            cancelButtonText: "Cancelar",
         }).then((result) => {
             if (result.isConfirmed) {
                 let paleta = JSON.parse(localStorage.getItem("paletas-guardadas"));
@@ -67,6 +77,8 @@ if (localStorage.getItem("paletas-guardadas")) {
                 $(".index").fadeIn("fast");
                 $(".register-page").fadeOut("fast");
                 $(".paletas-guardadas-page").fadeOut("fast");
+
+                respaldarLocalStorage();
 
                 window.location.href = "index.html#paleta-container";
             } else if (result.isDenied) {
