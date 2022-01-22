@@ -392,9 +392,9 @@ $(".contenedor-colores").on("click", ".color-hex", function () {
 
 /* FUNCIONES MENORES INDIVIDUALES */
 
-$(".contenedor-color").on("click", function () {
-    let colorHex = $(this).find(".color-hex");
-    let inputs = $(this).find("input");
+$(".contenedor-color").on("click", ".opciones", function () {
+    let colorHex = $(this).parents(".contenedor-color").find(".color-hex");
+    let inputs = $(this).parents(".contenedor-color").find("input");
 
     colorHex.fadeIn("fast");
     inputs.fadeOut("fast");
