@@ -242,6 +242,10 @@ input:focus {
     color: var(--main-color);
 }
 
+.texto-guardadas:hover {
+    cursor: pointer;
+}
+
 .contenedor-paletas {
     display: flex;
     justify-content: space-between;
@@ -288,4 +292,96 @@ input:focus {
 
 .drag {
     opacity: 0;
+}
+
+/* BREAKPOINTS */
+
+/* INDEX */
+
+@media screen and (max-width: 700px) {
+    /* INICIO */
+
+    .contenedor-inicio {
+        flex-direction: column;
+    }
+    .banner {
+        padding: 2rem;
+    }
+    .texto-inicio {
+        width: 100%;
+        padding: 1rem;
+    }
+    .title-inicio {
+        font-size: 2.4rem;
+    }
+    .parrafo-inicio {
+        font-size: 1.2rem;
+    }
+
+    /* PALETAS */
+
+    .contenedor-paleta {
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .contenedor-opciones-generales {
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-around;
+    }
+    .contenedor-colores {
+        width: 100%;
+        height: 100%;
+        flex-wrap: wrap;
+    }
+    .contenedor-color {
+        padding: 2rem 1.5rem 0.5rem 1.5rem;
+    }
+}
+
+@media screen and (min-width: 500px) and (max-width: 700px) {
+    .contenedor-color {
+        width: 50%;
+    }
+    .contenedor-color:last-of-type {
+        width: 100%;
+    }
+}
+
+/* PALETAS GUARDADAS */
+
+@media screen and (max-width: 700px) {
+    .contenedorIconosPaletas {
+        justify-content: center !important;
+    }
+    .contenedor-paletas-guardadas {
+        margin: 0;
+    }
+    .paletas-guardadas {
+        justify-content: center;
+    }
+    .texto-guardadas {
+        text-align: center;
+        margin-top: 4rem;
+    }
+}
+
+/* PÁGINA DE REGISTRO */
+
+@media screen and (max-width: 700px) {
+    .contenedor-formulario {
+        height: initial;
+        margin-top: 2rem;
+    }
+    .contenedor-formulario form {
+        width: initial;
+    }
+    .contenedor-formulario form div,
+    .contenedor-formulario form input,
+    .contenedor-formulario form label {
+        font-size: 1rem;
+    }
+    .icono-form {
+        font-size: 3.2rem;
+    }
 }

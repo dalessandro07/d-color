@@ -11,6 +11,13 @@ $(".actualizarPaletas").on("click", function () {
     window.location.reload();
 });
 
+$(".texto-guardadas").on("click", function () {
+    $(".index").fadeIn("fast");
+    $(".register-page").fadeOut("fast");
+    $(".paletas-guardadas-page").fadeOut("fast");
+    window.location.href = "index.html#paleta-container";
+});
+
 /* CAPTURAR DATOS DEL LOCAL_STORAGE */
 
 if (localStorage.getItem("paletas-guardadas")) {

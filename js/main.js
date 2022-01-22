@@ -87,17 +87,19 @@ function cambiarLocalStorage(contenedorColor, colorParam) {
 }
 
 function eliminarLocalStorage(indice) {
-    let paleta = JSON.parse(localStorage.getItem("paleta"));
-    let count = 0;
+    if (localStorage.getItem("paleta")) {
+        let paleta = JSON.parse(localStorage.getItem("paleta"));
+        let count = 0;
 
-    paleta.splice(indice, 1);
+        paleta.splice(indice, 1);
 
-    for (const color of paleta) {
-        color.id = count++;
-        console.log(color);
+        for (const color of paleta) {
+            color.id = count++;
+            console.log(color);
+        }
+
+        localStorage.setItem("paleta", JSON.stringify(paleta));
     }
-
-    localStorage.setItem("paleta", JSON.stringify(paleta));
 }
 
 if (localStorage.getItem("paleta")) {
@@ -389,6 +391,14 @@ $(".contenedor-colores").on("click", ".color-hex", function () {
 });
 
 /* FUNCIONES MENORES INDIVIDUALES */
+
+$(".contenedor-color").on("click", function () {
+    let colorHex = $(this).find(".color-hex");
+    let inputs = $(this).find("input");
+
+    colorHex.fadeIn("fast");
+    inputs.fadeOut("fast");
+});
 
 /* COPIAR COLOR */
 

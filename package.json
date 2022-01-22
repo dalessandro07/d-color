@@ -1,0 +1,31 @@
+{
+  "name": "03-paleta-de-colores",
+  "version": "1.0.0",
+  "description": "Sitio web para crear una paleta de colores súper rápido.",
+  "main": "js/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dalessandro07/d-color.git"
+  },
+  "keywords": [
+    "paleta",
+    "de",
+    "colores",
+    "paleta",
+    "de",
+    "color",
+    "paletas",
+    "colores",
+    "color",
+    "palette"
+  ],
+  "author": "Alessandro Rios",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dalessandro07/d-color/issues"
+  },
+  "homepage": "https://github.com/dalessandro07/d-color#readme"
+}
