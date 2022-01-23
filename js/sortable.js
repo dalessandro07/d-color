@@ -15,6 +15,8 @@ Sortable.create(lista, {
     ghostClass: "fantasma",
     /* ESTILO AL HACER DRAG */
     dragClass: "drag",
+    /* HANDLE */
+    handle: ".contenedor-hex",
     /* CUANDO SE SUELTA */
     onEnd: () => {
         arrayPaletaColores = [];
