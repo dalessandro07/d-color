@@ -26,10 +26,6 @@ $(window).scroll(function () {
     }
 });
 
-document.oncontextmenu = function () {
-    return false;
-};
-
 /* MOSTRAR PALETAS RECARGADAS */
 
 /* FUNCION REGARGAR PALETAS */
@@ -248,16 +244,75 @@ $(".fa-palette").on("click", function () {
 /* BORRAR/LIMPIAR PALETA */
 
 $(".fa-trash-alt").on("click", function () {
-    contenedorColorDefault.find(".color-hex").text("#FFFFFF");
-    contenedorColorDefault.find(".color-hex").css("color", "#000000");
-    contenedorColorDefault.find(".opciones").css("color", "#000000");
-    contenedorColorDefault.css("background-color", "#FFFFFF");
-    $(".contenedor-colores").children().remove();
-    $(".contenedor-colores").append(contenedorColorDefault.clone());
+    Swal.fire({
+        title: "¿Quieres limpiar la paleta? Esta acción no se puede deshacer",
+        showDenyButton: true,
+        showCancelButton: true,
+        showConfirmButton: false,
+        denyButtonText: `Limpiar`,
+        cancelButtonText: "Cancelar",
+    }).then((result) => {
+        if (result.isDenied) {
+            contenedorColorDefault.find(".color-hex").text("#FFFFFF");
+            contenedorColorDefault.find(".color-hex").css("color", "#000000");
+            contenedorColorDefault.find(".opciones").css("color", "#000000");
+            contenedorColorDefault.css("background-color", "#FFFFFF");
+            $(".contenedor-colores").children().remove();
+            $(".contenedor-colores").append(contenedorColorDefault.clone());
 
-    localStorage.removeItem("paleta");
+            localStorage.removeItem("paleta");
 
-    asignarNombre([{ id: 0, color: "#FFFFFF" }]);
+            asignarNombre([{ id: 0, color: "#FFFFFF" }]);
+        }
+    });
+});
+
+/* CREAR PALETA CON COLOR BASE */
+
+$(".fa-fill").on("click", function () {
+    Swal.fire({
+        title: "Introduzca el color base",
+        input: "text",
+        inputAttributes: {
+            autocapitalize: "off",
+        },
+        showCancelButton: true,
+        cancelButtonText: "Cancelar",
+        confirmButtonText: "Crear Paleta",
+        showLoaderOnConfirm: true,
+        preConfirm: (color) => {
+            return fetch(`https://www.thecolorapi.com/scheme?hex=${color.slice(1)}`)
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error(response.statusText);
+                    }
+                    return response.json();
+                })
+                .catch((error) => {
+                    Swal.showValidationMessage(`Request failed: ${error}`);
+                });
+        },
+        allowOutsideClick: () => !Swal.isLoading(),
+    }).then((result) => {
+        if (result.isConfirmed) {
+            let esquema = result.value.colors;
+            let count = 0;
+
+            let paleta = [];
+
+            for (let color of esquema) {
+                paleta.push({ id: count++, color: color.hex.value });
+            }
+
+            guardarLocalStorage(paleta);
+            respaldarLocalStorage();
+
+            Swal.fire({
+                title: `¡Paleta Creada!`,
+                imageUrl: result.value.image.named,
+            });
+        }
+    });
 });
 
 /* GUARDAR PALETA */
@@ -441,6 +496,11 @@ $(".contenedor-colores").on("click", ".color-hex", function () {
     });
 });
 
+$(".contenedor-colores").on("click", ".opciones", function () {
+    $(this).parents(".contenedor-color").find(".contenedor-hex").children("input").fadeOut("fast");
+    $(this).parents(".contenedor-color").find(".contenedor-hex").children(".color-hex").fadeIn("fast");
+});
+
 /* FUNCIONES MENORES INDIVIDUALES */
 
 /* COPIAR COLOR */
@@ -510,7 +570,8 @@ $(".contenedor-colores").on("click", ".fa-times", function () {
     let contenedoresTotales = $(".contenedor-colores").find(".contenedor-color");
 
     if (contenedoresTotales.length > 1) {
-        contenedorColor.fadeOut("slow", function () {
+        contenedorColor.addClass("animate__animated animate__hinge");
+        contenedorColor.fadeOut(1800, function () {
             contenedorColor.remove();
         });
         let idThis = contenedoresTotales.index(contenedorColor);

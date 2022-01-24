@@ -89,7 +89,24 @@ if (localStorage.getItem("paletas-guardadas")) {
 
                 respaldarLocalStorage();
 
-                window.location.href = "index.html#paleta-container";
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "center",
+                    showConfirmButton: false,
+                    timer: 1000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener("mouseenter", Swal.stopTimer);
+                        toast.addEventListener("mouseleave", Swal.resumeTimer);
+                    },
+                });
+
+                Toast.fire({
+                    icon: "warning",
+                    title: "¡No olvides guardar los cambios! 💾",
+                });
+
+                $("html,body").animate({ scrollTop: document.body.scrollHeight }, "slow");
             } else if (result.isDenied) {
                 let paleta = JSON.parse(localStorage.getItem("paletas-guardadas"));
                 let indice = $(this).index(".paleta-guardada");

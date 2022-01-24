@@ -49,7 +49,7 @@
                 <div class="index">
                     <div class="inicio">
                         <div class="contenedor-inicio">
-                            <div class="texto-inicio">
+                            <div class="texto-inicio animate__animated animate__slideInLeft">
                                 <h1 class="title-inicio">D'Color</h1>
                                 <b class="parrafo-inicio">¡El generador de paletas más rápido de la web!</b>
                             </div>
@@ -59,12 +59,13 @@
                         </div>
                     </div>
 
-                    <div class="contenedor-paleta" id="paleta-container">
+                    <div class="contenedor-paleta animate__animated animate__bounceInLeft" id="paleta-container">
                         <div class="contenedor-opciones-generales">
                             <i class="fas fa-plus" title="Agregar Color"></i>
                             <i class="fas fa-save" title="Guardar Paleta"></i>
                             <i class="fas fa-trash-alt" title="Limpiar Paleta ⚠️"></i>
                             <i class="fas fa-palette fa-palette2" title="Crear Paleta al Azar"></i>
+                            <i class="fas fa-fill" title="Crear Paleta con Color Base"></i>
                         </div>
                         <div class="contenedor-colores">
                             <div class="contenedor-color" data-id="0">
@@ -80,11 +81,11 @@
                                     <input style="display: none" type="color" name="color-picker" class="picker form-control-color" />
                                     <div class="d-flex contenedor-mixing flex-column">
                                         <div class="d-flex">
-                                            <input placeholder="#ABCDEF" value="#" style="display: none" type="text" class="mixing color-mix-1" />
+                                            <input placeholder="#ABCDEF" style="display: none" type="text" class="mixing color-mix-1" />
                                             <i style="display: none" class="fas fa-pencil-alt"></i>
                                         </div>
                                         <div class="d-flex">
-                                            <input placeholder="#123456" value="#" style="display: none" type="text" class="mixing color-mix-2" />
+                                            <input placeholder="#123456" style="display: none" type="text" class="mixing color-mix-2" />
                                             <i style="display: none" class="fas fa-pencil-alt"></i>
                                         </div>
                                     </div>
@@ -95,7 +96,7 @@
                     </div>
                 </div>
 
-                <div class="register-page" style="display: none">
+                <div class="register-page animate__animated animate__flipInY" style="display: none">
                     <div class="contenedor-formulario container">
                         <i class="fas fa-palette me-2 icono-form"></i>
                         <form class="form">

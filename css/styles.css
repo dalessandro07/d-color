@@ -2,6 +2,7 @@
 
 body {
     font-family: pangram;
+    overflow-x: hidden;
 }
 
 /* BOOTSTRAP */
@@ -170,7 +171,8 @@ input:focus {
 .fa-save,
 .fa-plus,
 .fa-trash-alt,
-.fa-palette2 {
+.fa-palette2,
+.fa-fill {
     text-align: center;
     margin: 1rem 0;
     color: #fff;
