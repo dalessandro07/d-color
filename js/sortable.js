@@ -31,8 +31,6 @@ Sortable.create(lista, {
             arrayPaletaColores.push(paletaObj);
         }
 
-        console.log(arrayPaletaColores);
-
         guardarLocalStorage(arrayPaletaColores);
     },
     /* DAR NOMBRE A LA LISTA */

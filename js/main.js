@@ -2,7 +2,9 @@
 
 let contenedorColorDefault = $(".contenedor-color");
 let paletasGuardadas = [];
+let horasGuardadas = [];
 let arrayPaletaColores = [];
+let idCount = 0;
 
 /* INICIANDO FUNCIONES */
 
@@ -155,6 +157,9 @@ function respaldarLocalStorage() {
     } else {
         asignarNombre([{ id: 0, color: "#FFFFFF" }]);
     }
+    if (localStorage.getItem("hora")) {
+        horasGuardadas = JSON.parse(localStorage.getItem("hora"));
+    }
 }
 
 respaldarLocalStorage();
@@ -290,7 +295,12 @@ $(".fa-save").on("click", function () {
                     let comprobar = paletasGuardadas.find((col) => col[0].color === paleta[0].color);
 
                     if (comprobar === undefined) {
+                        let horaActual = new Date().toLocaleString();
+                        horasGuardadas.push({ id: idCount++, hora: horaActual.slice(10) });
+
                         paletasGuardadas.push(paleta);
+
+                        localStorage.setItem("hora", JSON.stringify(horasGuardadas));
                         localStorage.setItem("paletas-guardadas", JSON.stringify(paletasGuardadas));
 
                         const Toast = Swal.mixin({
