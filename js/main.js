@@ -296,21 +296,24 @@ $(".fa-fill").on("click", function () {
     }).then((result) => {
         if (result.isConfirmed) {
             let esquema = result.value.colors;
+            let paleta = [];
             let count = 0;
 
-            let paleta = [];
+            if (esquema !== undefined) {
+                for (let color of esquema) {
+                    paleta.push({ id: count++, color: color.hex.value });
+                }
 
-            for (let color of esquema) {
-                paleta.push({ id: count++, color: color.hex.value });
+                guardarLocalStorage(paleta);
+                respaldarLocalStorage();
+
+                Swal.fire({
+                    title: `¡Paleta Creada!`,
+                    imageUrl: result.value.image.named,
+                });
             }
-
-            guardarLocalStorage(paleta);
-            respaldarLocalStorage();
-
-            Swal.fire({
-                title: `¡Paleta Creada!`,
-                imageUrl: result.value.image.named,
-            });
+        } else {
+            console.log("no");
         }
     });
 });
