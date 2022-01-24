@@ -126,10 +126,15 @@ input:focus {
 
 .contenedor-hex {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 35%;
     cursor: move;
+}
+
+.color-name {
+    font-size: 0.8rem;
 }
 
 .opciones {

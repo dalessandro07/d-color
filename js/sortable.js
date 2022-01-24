@@ -17,6 +17,8 @@ Sortable.create(lista, {
     dragClass: "drag",
     /* HANDLE */
     handle: ".contenedor-hex",
+    /* ELEMENTOS IGNORADOS */
+    filter: ".color-hex",
     /* CUANDO SE SUELTA */
     onEnd: () => {
         arrayPaletaColores = [];

@@ -1,6 +1,7 @@
 /* VARIABLES GLOBALES */
 
 let contenedorColorDefault = $(".contenedor-color");
+let paletasGuardadas = [];
 let arrayPaletaColores = [];
 
 /* INICIANDO FUNCIONES */
@@ -43,12 +44,11 @@ function recargarPaletas() {
     }
 
     localStorage.setItem("recargado", 0);
-    // localStorage.removeItem("indice");
 }
 
 recargarPaletas();
 
-/* CAMBIANDO COLOR DE TEXTO POR EL FONDO DINÑAMICAMENTE */
+/* CAMBIANDO COLOR DE TEXTO POR EL FONDO DINAMICAMENTE */
 
 function detectaColor(colorAComprobar, texto, iconos) {
     let comprobar = tinycolor(colorAComprobar).isLight();
@@ -58,6 +58,29 @@ function detectaColor(colorAComprobar, texto, iconos) {
     } else {
         texto.css("color", "#000000");
         iconos.css("color", "#000000");
+    }
+}
+
+/* FUNCION ASIGNANDO NOMBRES A LOS COLORES */
+
+function asignarNombre(paleta) {
+    for (const color of paleta) {
+        let contenedorColor = $(".contenedor-colores").children();
+        let colorName = contenedorColor.find(".color-name");
+
+        /* GET THE COLOR API */
+
+        let url = `https://www.thecolorapi.com/id?hex=${color.color.slice(1)}`;
+
+        $.get(url, function (data, textStatus, err) {
+            if (textStatus == "success") {
+                color.name = data.name.value;
+                $(colorName[color.id]).text(color.name);
+                detectaColor(color.color, $(colorName[color.id]), $(colorName[color.id]));
+            } else {
+                console.log(err);
+            }
+        });
     }
 }
 
@@ -95,7 +118,6 @@ function eliminarLocalStorage(indice) {
 
         for (const color of paleta) {
             color.id = count++;
-            console.log(color);
         }
 
         localStorage.setItem("paleta", JSON.stringify(paleta));
@@ -105,6 +127,10 @@ function eliminarLocalStorage(indice) {
 function respaldarLocalStorage() {
     if (localStorage.getItem("paleta")) {
         let paleta = JSON.parse(localStorage.getItem("paleta"));
+
+        if (localStorage.getItem("paletas-guardadas")) {
+            paletasGuardadas = JSON.parse(localStorage.getItem("paletas-guardadas"));
+        }
 
         $(".contenedor-colores").children().remove();
 
@@ -124,6 +150,10 @@ function respaldarLocalStorage() {
 
             $(".contenedor-color:last").attr("data-id", $(".contenedor-color:last").index());
         }
+
+        asignarNombre(paleta);
+    } else {
+        asignarNombre([{ id: 0, color: "#FFFFFF" }]);
     }
 }
 
@@ -159,6 +189,7 @@ $(".fa-plus").on("click", function () {
     }
 
     guardarLocalStorage(arrayPaletaColores);
+    asignarNombre(arrayPaletaColores);
 });
 
 /* CREAR PALETA AL AZAR */
@@ -178,11 +209,14 @@ $(".fa-palette").on("click", function () {
     /* ASIGNAR COLORES AL AZAR A CADA ITEM DE LA PALETA */
 
     let contenedoresColor = $(this).parents(".contenedor-paleta").find(".contenedor-colores").find(".contenedor-color");
+
     let colorHex = contenedoresColor.find(".color-hex");
 
     for (let color of colorHex) {
         let colorRandom = tinycolor.random();
         let colorRandomHex = tinycolor(colorRandom).toHexString().toUpperCase();
+
+        /* ASIGNAR NOMBRES AL COLOR */
 
         let contenedorColor = $(color).parents(".contenedor-color");
         let iconos = contenedorColor.find(".opciones");
@@ -202,6 +236,7 @@ $(".fa-palette").on("click", function () {
         paleta.push({ id: count++, color: $(color).text() });
     }
 
+    asignarNombre(paleta);
     guardarLocalStorage(paleta);
 });
 
@@ -216,17 +251,11 @@ $(".fa-trash-alt").on("click", function () {
     $(".contenedor-colores").append(contenedorColorDefault.clone());
 
     localStorage.removeItem("paleta");
+
+    asignarNombre([{ id: 0, color: "#FFFFFF" }]);
 });
 
 /* GUARDAR PALETA */
-
-let paletasGuardadas = [];
-
-/* RECUPERAR PALETA GUARDADA DEL LOCAL_STORAGE */
-
-if (localStorage.getItem("paletas-guardadas")) {
-    paletasGuardadas = JSON.parse(localStorage.getItem("paletas-guardadas"));
-}
 
 /* FUNCIONES Y EVENTOS DE GUARDAR PALETA */
 
@@ -393,6 +422,12 @@ $(".contenedor-colores").on("click", ".color-hex", function () {
         /* ENCONTRAR EN EL LOCAL_STORAGE */
 
         cambiarLocalStorage(contenedorColor, picker.val());
+
+        /* CAMBIAR NOMBRE DE COLOR */
+
+        let paleta = JSON.parse(localStorage.getItem("paleta"));
+
+        asignarNombre(paleta);
     });
 });
 
@@ -444,6 +479,12 @@ $(".contenedor-colores").on("click", ".fa-dice", function () {
 
     if (localStorage.getItem("paleta")) {
         cambiarLocalStorage(contenedorColor, colorRandomHex);
+
+        let paleta = JSON.parse(localStorage.getItem("paleta"));
+        asignarNombre(paleta);
+    } else {
+        let paleta = [{ id: contenedorColor.attr("data-id"), color: colorHex.text() }];
+        asignarNombre(paleta);
     }
 
     /* CAMBIAR TEXTO DETECTANDO COLOR */
@@ -459,7 +500,9 @@ $(".contenedor-colores").on("click", ".fa-times", function () {
     let contenedoresTotales = $(".contenedor-colores").find(".contenedor-color");
 
     if (contenedoresTotales.length > 1) {
-        contenedorColor.remove();
+        contenedorColor.fadeOut("slow", function () {
+            contenedorColor.remove();
+        });
         let idThis = contenedoresTotales.index(contenedorColor);
         eliminarLocalStorage(idThis);
     } else {
@@ -468,9 +511,14 @@ $(".contenedor-colores").on("click", ".fa-times", function () {
         iconos.css("color", "#000000");
         colorHex.text("#FFFFFF");
 
-        let paleta = JSON.parse(localStorage.getItem("paleta"));
-        paleta[0].color = "#FFFFFF";
-        localStorage.setItem("paleta", JSON.stringify(paleta));
+        if (localStorage.getItem("paleta")) {
+            let paleta = JSON.parse(localStorage.getItem("paleta"));
+            paleta[0].color = "#FFFFFF";
+            localStorage.setItem("paleta", JSON.stringify(paleta));
+            asignarNombre([{ id: 0, color: "#FFFFFF" }]);
+        } else {
+            asignarNombre([{ id: 0, color: "#FFFFFF" }]);
+        }
     }
 });
 
@@ -532,11 +580,19 @@ $(".contenedor-colores").on("click", ".fa-blender", function () {
 
                     iconoCombinar.addClass("clicked");
 
-                    detectaColor(colorCombinado, contenedorColor.find(".color-hex"), iconos);
-
                     /* CAMBIAR LOCAL_STORAGE */
 
                     cambiarLocalStorage(contenedorColor, colorCombinado);
+
+                    /* CAMBIAR NOMBRE DE COLOR */
+
+                    let paleta = JSON.parse(localStorage.getItem("paleta"));
+
+                    asignarNombre(paleta);
+
+                    /* DETECTAR COLOR */
+
+                    detectaColor(colorCombinado, contenedorColor.find(".color-hex"), iconos);
                 }
             }
         });
