@@ -2,7 +2,6 @@
 
 let contenedorColorDefault = $(".contenedor-color");
 let paletasGuardadas = [];
-let horasGuardadas = [];
 let arrayPaletaColores = [];
 let idCount = 0;
 
@@ -153,12 +152,28 @@ function respaldarLocalStorage() {
     } else {
         asignarNombre([{ id: 0, color: "#FFFFFF" }]);
     }
-    if (localStorage.getItem("hora")) {
-        horasGuardadas = JSON.parse(localStorage.getItem("hora"));
-    }
 }
 
 respaldarLocalStorage();
+
+/* OBTENIENDO HORA DE GUARDADO DE PALETA */
+
+function obtenerHora() {
+    let fecha = new Date().toLocaleDateString();
+    let hora = new Date().getHours();
+    let minutos = new Date().getMinutes();
+    let segundos = new Date().getSeconds();
+
+    if (minutos < 10) {
+        minutos = "0" + minutos;
+    } else if (segundos < 10) {
+        segundos = "0" + segundos;
+    }
+
+    let horaActual = `${fecha} | ${hora}:${minutos}:${segundos}`;
+
+    return horaActual;
+}
 
 /* FUNCIONES MAYORES */
 
@@ -350,15 +365,11 @@ $(".fa-save").on("click", function () {
 
                     localStorage.removeItem("indice");
                 } else {
-                    let comprobar = paletasGuardadas.find((col) => col[0].color === paleta[0].color);
+                    let comprobar = paletasGuardadas.find((col) => col.paleta[0].color === paleta[0].color);
 
                     if (comprobar === undefined) {
-                        let horaActual = new Date().toLocaleString();
-                        horasGuardadas.push({ id: idCount++, hora: horaActual.slice(10) });
+                        paletasGuardadas.push({ paleta: paleta, hora: obtenerHora() });
 
-                        paletasGuardadas.push(paleta);
-
-                        localStorage.setItem("hora", JSON.stringify(horasGuardadas));
                         localStorage.setItem("paletas-guardadas", JSON.stringify(paletasGuardadas));
 
                         const Toast = Swal.mixin({

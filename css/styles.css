@@ -111,9 +111,6 @@ input:focus {
 
 .contenedor-paleta-hora {
     flex: auto;
-}
-
-.contenedor-paleta-hora:last-of-type {
     flex-grow: 0;
 }
 
@@ -303,6 +300,10 @@ input:focus {
     height: 100%;
     word-wrap: break-word;
     margin: 0 auto;
+}
+
+.fecha-hora {
+    font-size: 0.7rem;
 }
 
 /* DRAG AND DROP */

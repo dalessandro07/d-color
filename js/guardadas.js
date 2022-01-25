@@ -34,14 +34,16 @@ if (localStorage.getItem("paletas-guardadas")) {
     for (let paleta of paletasGuardadas) {
         $(".paletas-guardadas").append(
             `<div class="d-flex flex-column contenedor-paleta-hora">
-                <b class="text-center d-flex flex-column">Paleta N°${count2++}<em class="fecha-hora"></em></b>
+                <b class="text-center d-flex flex-column">Paleta N°${count2++}<em class="fecha-hora">${paleta.hora}</em></b>
                 <div class="paleta-guardada paleta-${count++} d-flex">
                 </div>
             </div>`
         );
 
-        for (const color of paleta) {
-            if (paleta.length <= 5) {
+        let paletaAIterar = paleta.paleta;
+
+        for (const color of paletaAIterar) {
+            if (paletaAIterar.length <= 5) {
                 $(".paleta-guardada:last").append(`<div class="paleta-color" style="background-color: ${color.color}"><div class="color-text">${color.color}</div></div>`);
             }
         }
@@ -57,14 +59,18 @@ if (localStorage.getItem("paletas-guardadas")) {
             confirmButtonText: "Eliminar",
             cancelButtonText: "Cancelar",
         }).then((result) => {
-            localStorage.removeItem("paletas-guardadas");
-            localStorage.setItem("recargado", 1);
-            localStorage.removeItem("hora");
-            window.location.reload();
+            if (result.isConfirmed) {
+                localStorage.removeItem("paletas-guardadas");
+                localStorage.setItem("recargado", 1);
+                localStorage.removeItem("hora");
+                window.location.reload();
+            } else if (result.isDenied) {
+                return;
+            }
         });
     });
 
-    /* EDITAR PALETA */
+    /* EDITAR y ELIMINAR PALETA */
 
     $(".paletas-guardadas").on("click", ".paleta-guardada", function () {
         Swal.fire({
@@ -78,7 +84,9 @@ if (localStorage.getItem("paletas-guardadas")) {
             if (result.isConfirmed) {
                 let paleta = JSON.parse(localStorage.getItem("paletas-guardadas"));
 
-                let indice = $(this).index();
+                let indice = $(".paleta-guardada").index($(this));
+
+                console.log(indice);
 
                 localStorage.setItem("indice", indice);
                 localStorage.setItem("paleta", JSON.stringify(paleta[indice]));
@@ -115,6 +123,12 @@ if (localStorage.getItem("paletas-guardadas")) {
                 localStorage.setItem("paletas-guardadas", JSON.stringify(paleta));
 
                 $(this).parents(".contenedor-paleta-hora").remove();
+
+                if ($(".paleta-guardada").length === 0) {
+                    $(".texto-guardadas").fadeIn("fast");
+                } else {
+                    $(".texto-guardadas").fadeOut("fast");
+                }
             }
         });
     });
@@ -129,4 +143,10 @@ if (localStorage.getItem("paletas-guardadas")) {
     }
 } else {
     $(".texto-guardadas").fadeIn("fast");
+}
+
+if ($(".paleta-guardada").length === 0) {
+    $(".texto-guardadas").fadeIn("fast");
+} else {
+    $(".texto-guardadas").fadeOut("fast");
 }
