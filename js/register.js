@@ -1,17 +1,11 @@
+$(".register").click(function () {
+    $(".register-page").fadeIn("fast");
+    $(".paletas-guardadas-page").fadeOut("fast");
+    $(".index").fadeOut("fast");
+    $(".contenedor-paleta").fadeOut("fast");
+});
+
 if (!localStorage.getItem("password")) {
-    $("#register").click(function () {
-        $(".index").fadeOut("fast");
-        $(".register-page").fadeIn("fast");
-        $(".paletas-guardadas-page").fadeOut("fast");
-    });
-
-    $("#nueva-paleta").click(function () {
-        $(".index").fadeIn("slow");
-        $(".register-page").fadeOut("fast");
-        $(".fondo-wave3").fadeOut("fast");
-        $(".paletas-guardadas-page").fadeOut("fast");
-    });
-
     /* DATOS */
 
     $("#exampleInputEmail1").on("change", function () {
@@ -47,12 +41,6 @@ if (!localStorage.getItem("password")) {
         }
     });
 } else {
-    $("#register").click(function () {
-        $(".index").fadeOut("fast");
-        $(".register-page").fadeIn("fast");
-        $(".paletas-guardadas-page").fadeOut("fast");
-    });
-
     /* REGISTRARSE */
 
     $("#submit-reg").click(function (e) {

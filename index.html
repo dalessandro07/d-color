@@ -18,6 +18,8 @@
         <link rel="stylesheet" href="css/styles.css" />
     </head>
     <body>
+        <!-- CONTENEDOR PADRE -->
+
         <div class="root">
             <header class="cabecera-nav">
                 <nav class="navbar navbar-expand-lg navbar-light">
@@ -31,13 +33,13 @@
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav me-auto mb-2 mb-lg-0 w-100 justify-content-end">
                                 <li class="nav-item">
-                                    <a class="nav-link" id="nueva-paleta" href="index.html#paleta-container">Nueva Paleta</a>
+                                    <a class="nav-link nueva-paleta" href="index.html#paleta-container">Nueva Paleta</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="paletas-guardadas" href="#">Paletas Guardadas</a>
+                                    <a class="nav-link paletas-guardadas-link" href="#">Paletas Guardadas</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="register" href="#">Registrarse</a>
+                                    <a class="nav-link register" href="#">Registrarse</a>
                                 </li>
                             </ul>
                         </div>
@@ -58,41 +60,41 @@
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="contenedor-paleta animate__animated animate__bounceInLeft" id="paleta-container">
-                        <div class="contenedor-opciones-generales">
-                            <i class="fas fa-plus" title="Agregar Color"></i>
-                            <i class="fas fa-save" title="Guardar Paleta"></i>
-                            <i class="fas fa-trash-alt" title="Limpiar Paleta ⚠️"></i>
-                            <i class="fas fa-palette fa-palette2" title="Crear Paleta al Azar"></i>
-                            <i class="fas fa-fill" title="Crear Paleta con Color Base"></i>
-                        </div>
-                        <div class="contenedor-colores">
-                            <div class="contenedor-color" data-id="0">
-                                <div class="opciones">
-                                    <i class="opcionesMenores fas fa-times" title="Eliminar Color"></i>
-                                    <i class="opcionesMenores far fa-clone" title="Copiar Color"></i>
-                                    <i class="opcionesMenores fas fa-dice" title="Color al Azar"></i>
-                                    <i class="opcionesMenores fas fa-blender clicked" title="Mezclar Colores"></i>
-                                </div>
-                                <div class="contenedor-hex">
-                                    <h4 class="color-hex">#FFFFFF</h4>
-                                    <b class="color-name"></b>
-                                    <input style="display: none" type="color" name="color-picker" class="picker form-control-color" />
-                                    <div class="d-flex contenedor-mixing flex-column">
-                                        <div class="d-flex">
-                                            <input placeholder="#ABCDEF" style="display: none" type="text" class="mixing color-mix-1" />
-                                            <i style="display: none" class="fas fa-pencil-alt"></i>
-                                        </div>
-                                        <div class="d-flex">
-                                            <input placeholder="#123456" style="display: none" type="text" class="mixing color-mix-2" />
-                                            <i style="display: none" class="fas fa-pencil-alt"></i>
-                                        </div>
+                <div class="contenedor-paleta animate__animated animate__bounceInLeft" id="paleta-container">
+                    <div class="contenedor-opciones-generales">
+                        <i class="fas fa-plus" data-title2="Agregar Color"></i>
+                        <i class="fas fa-save" data-title2="Guardar Paleta"></i>
+                        <i class="fas fa-trash-alt" data-title2="Limpiar Paleta ⚠️"></i>
+                        <i class="fas fa-palette fa-palette2" data-title2="Crear Paleta al Azar"></i>
+                        <i class="fas fa-fill" data-title2="Crear Paleta con Color Base"></i>
+                    </div>
+                    <div class="contenedor-colores">
+                        <div class="contenedor-color" data-id="0">
+                            <div class="opciones">
+                                <i class="opcionesMenores fas fa-times" data-title="Eliminar Color"></i>
+                                <i class="opcionesMenores fas fa-arrows-alt-h" data-title="Mover Color"></i>
+                                <i class="opcionesMenores far fa-clone" data-title="Copiar Color"></i>
+                                <i class="opcionesMenores fas fa-dice" data-title="Color al Azar"></i>
+                                <i class="opcionesMenores fas fa-blender clicked" data-title="Mezclar Colores"></i>
+                            </div>
+                            <div class="contenedor-hex">
+                                <h4 class="color-hex">#FFFFFF</h4>
+                                <b class="color-name"></b>
+                                <input style="display: none" type="color" name="color-picker" class="picker form-control-color" />
+                                <div class="d-flex contenedor-mixing flex-column">
+                                    <div class="d-flex">
+                                        <input placeholder="#ABCDEF" style="display: none" type="text" class="mixing color-mix-1" />
+                                        <i style="display: none" class="fas fa-pencil-alt"></i>
+                                    </div>
+                                    <div class="d-flex">
+                                        <input placeholder="#123456" style="display: none" type="text" class="mixing color-mix-2" />
+                                        <i style="display: none" class="fas fa-pencil-alt"></i>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <i style="display: none" class="fas fa-arrow-up"></i>
                     </div>
                 </div>
 
@@ -123,8 +125,8 @@
                         <h2 class="text-center mt-5">Paletas Guardadas</h2>
                     </div>
                     <div class="contenedorIconosPaletas d-flex align-items-center justify-content-end" style="width: 97vw">
-                        <i class="fas fa-trash m-3 borrarPaletas" title="Borrar Paletas ⚠️"></i>
-                        <i class="fas fa-sync-alt m-3 actualizarPaletas" title="Actualizar Paletas"></i>
+                        <i class="fas fa-trash m-3 borrarPaletas" data-title="Borrar Paletas ⚠️"></i>
+                        <i class="fas fa-sync-alt m-3 actualizarPaletas" data-title="Actualizar Paletas"></i>
                     </div>
                     <div class="contenedor-paletas-guardadas">
                         <b class="texto-guardadas">¡No tienes paletas guardadas!</b>
@@ -133,6 +135,48 @@
                     </div>
                 </div>
             </main>
+
+            <footer class="footer">
+                <div class="container flex-padre-footer">
+                    <div class="contenedor-enlaces h-100 d-flex flex-column justify-content-center">
+                        <h3 class="titulo-footer m-0">Enlaces</h3>
+                        <ul class="lista-enlaces">
+                            <li class="lista-item nueva-paleta nav-link">Nueva Paleta</li>
+                            <li class="lista-item paletas-guardadas-link nav-link">Paletas Guardadas</li>
+                            <li class="lista-item register nav-link">Registrarse</li>
+                        </ul>
+                        <h3 class="titulo-footer m-0">Redes</h3>
+                        <ul class="lista-enlaces" style="list-style: none">
+                            <li class="lista-item nueva-paleta">
+                                <a target="_blank" class="nav-link lista-item" href="https://www.linkedin.com/in/alessandro-rios/"><i class="me-2 fab fa-linkedin-in"></i>LinkedIn</a>
+                            </li>
+                            <li class="lista-item paletas-guardadas-link">
+                                <a target="_blank" class="nav-link lista-item" href="https://github.com/dalessandro07"><i class="me-2 fab fa-github"></i>Github</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="separador"></div>
+                    <div class="contenedor-contacto h-100 d-flex flex-column justify-content-center">
+                        <h3 class="titulo-footer">Contacto</h3>
+                        <b style="color: var(--bs-gray-100)">¡Déjame un feedback!</b>
+                        <div class="contenedor-form">
+                            <form action="https://formsubmit.co/dev.alessandro@hotmail.com" method="POST">
+                                <div class="d-flex flex-column">
+                                    <input class="form-control mt-2" type="text" name="name" required minlength="3" placeholder="Nombre..." />
+                                    <textarea minlength="6" required class="form-control mt-2 mb-2" placeholder="Mensaje..." name="feedback" id="" cols="10" rows="5" style="resize: none"></textarea>
+                                    <input type="hidden" name="_subject" value="Nuevo feedback!" />
+                                    <input type="hidden" name="_captcha" value="false" />
+                                    <button class="btn btn-warning enviarFeedback">Enviar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="separador"></div>
+                    <div class="contenedor-logo h-100">
+                        <i class="fas fa-palette me-2 icono-footer"></i>
+                    </div>
+                </div>
+            </footer>
         </div>
 
         <!-- JAVASCRIPT -->

@@ -12,6 +12,14 @@ input:focus {
     border-color: var(--beige) !important;
 }
 
+.nav-link {
+    color: rgba(0, 0, 0, 0.55);
+}
+
+.nav-link:hover {
+    cursor: pointer;
+}
+
 /* FUENTES */
 
 @font-face {
@@ -320,6 +328,57 @@ input:focus {
     opacity: 0;
 }
 
+/* FOOTER */
+
+.footer {
+    height: 60vh;
+    background-color: var(--bs-gray-900);
+}
+
+.flex-padre-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
+
+.lista-enlaces {
+    padding-left: 0;
+}
+
+.lista-item {
+    color: var(--bs-gray-100);
+}
+
+.titulo-footer {
+    color: var(--orange);
+    font-weight: bold;
+}
+
+.form-control {
+    margin-top: 1.75rem;
+}
+
+.form-control:focus {
+    box-shadow: 0px 2px 9px 4px var(--orange) !important;
+}
+
+.contenedor-logo {
+    display: flex;
+    align-items: center;
+}
+
+.separador {
+    height: 14rem;
+    width: 5px;
+    background-color: var(--bs-gray-100);
+}
+
+.icono-footer {
+    font-size: 7rem;
+    color: var(--bs-gray-100);
+}
+
 /* BREAKPOINTS */
 
 /* INDEX */
@@ -349,6 +408,7 @@ input:focus {
     .contenedor-paleta {
         flex-direction: column;
         justify-content: space-between;
+        height: 100%;
     }
     .contenedor-opciones-generales {
         flex-direction: row;
@@ -374,6 +434,60 @@ input:focus {
     .contenedor-color {
         width: 50%;
         flex-grow: 1;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    [data-title]:hover:after {
+        opacity: 1;
+        transition: all 0.1s ease 0.5s;
+        visibility: visible;
+    }
+
+    [data-title]:after {
+        content: attr(data-title);
+        background-color: #333;
+        color: #fff;
+        font-size: 1rem;
+        width: 8rem;
+        position: absolute;
+        top: -1.6rem;
+        padding: 3px 10px;
+        left: -3.5rem;
+        box-shadow: 1px 1px 3px #222222;
+        border: 1px solid #111111;
+        z-index: 99999;
+        visibility: hidden;
+        border-radius: 6px;
+    }
+    [data-title] {
+        position: relative;
+    }
+
+    [data-title2]:hover:after {
+        opacity: 1;
+        transition: all 0.1s ease 0.5s;
+        visibility: visible;
+    }
+
+    [data-title2]:after {
+        content: attr(data-title2);
+        background-color: #333;
+        color: #fff;
+        font-size: 1rem;
+        width: 8rem;
+        position: absolute;
+        top: -2.5rem;
+        padding: 3px 10px;
+        left: 2rem;
+        box-shadow: 1px 1px 3px #222222;
+        border: 1px solid #111111;
+        z-index: 99999;
+        visibility: hidden;
+        border-radius: 6px;
+    }
+    [data-title2] {
+        position: relative;
     }
 }
 

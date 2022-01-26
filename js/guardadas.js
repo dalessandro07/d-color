@@ -1,7 +1,8 @@
 /* MOSTRAR PALETAS GUARDADAS */
 
-$("#paletas-guardadas").click(function () {
+$(".paletas-guardadas-link").click(function () {
     $(".index").fadeOut("fast");
+    $(".contenedor-paleta").fadeOut("fast");
     $(".register-page").fadeOut("fast");
     $(".paletas-guardadas-page").fadeIn("fast");
 });
@@ -40,11 +41,19 @@ if (localStorage.getItem("paletas-guardadas")) {
             </div>`
         );
 
-        let paletaAIterar = paleta.paleta;
+        if (paleta.hora) {
+            let paletaAIterar = paleta.paleta;
 
-        for (const color of paletaAIterar) {
-            if (paletaAIterar.length <= 5) {
-                $(".paleta-guardada:last").append(`<div class="paleta-color" style="background-color: ${color.color}"><div class="color-text">${color.color}</div></div>`);
+            for (const color of paletaAIterar) {
+                if (paletaAIterar.length <= 5) {
+                    $(".paleta-guardada:last").append(`<div class="paleta-color" style="background-color: ${color.color}"><div class="color-text">${color.color}</div></div>`);
+                }
+            }
+        } else {
+            for (const color of paleta) {
+                if (paleta.length <= 5) {
+                    $(".paleta-guardada:last").append(`<div class="paleta-color" style="background-color: ${color.color}"><div class="color-text">${color.color}</div></div>`);
+                }
             }
         }
     }
@@ -86,12 +95,11 @@ if (localStorage.getItem("paletas-guardadas")) {
 
                 let indice = $(".paleta-guardada").index($(this));
 
-                console.log(indice);
-
                 localStorage.setItem("indice", indice);
                 localStorage.setItem("paleta", JSON.stringify(paleta[indice]));
 
                 $(".index").fadeIn("fast");
+                $(".contenedor-paleta").fadeIn("fast");
                 $(".register-page").fadeOut("fast");
                 $(".paletas-guardadas-page").fadeOut("fast");
 
@@ -114,7 +122,7 @@ if (localStorage.getItem("paletas-guardadas")) {
                     title: "¡No olvides guardar los cambios! 💾",
                 });
 
-                $("html,body").animate({ scrollTop: document.body.scrollHeight }, "slow");
+                window.scrollTo(1000, document.body.scrollHeight);
             } else if (result.isDenied) {
                 let paleta = JSON.parse(localStorage.getItem("paletas-guardadas"));
                 let indice = $(this).index(".paleta-guardada");

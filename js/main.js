@@ -7,8 +7,9 @@ let idCount = 0;
 
 /* INICIANDO FUNCIONES */
 
-$("#nueva-paleta").click(function () {
+$(".nueva-paleta").click(function () {
     $(".index").fadeIn("fast");
+    $(".contenedor-paleta").fadeIn("fast");
     $(".register-page").fadeOut("fast");
     $(".paletas-guardadas-page").fadeOut("fast");
 });
@@ -32,6 +33,7 @@ $(window).scroll(function () {
 function recargarPaletas() {
     if (parseInt(localStorage.getItem("recargado")) === 1) {
         $(".index").fadeOut("fast");
+        $(".contenedor-paleta").fadeOut("fast");
         $(".register-page").fadeOut("fast");
         $(".paletas-guardadas-page").fadeIn("fast");
     } else {
@@ -101,7 +103,7 @@ function cambiarLocalStorage(contenedorColor, colorParam) {
 
         let idThis = $(".contenedor-color").index(contenedorColor);
 
-        paleta[idThis].color = color;
+        paleta.paleta[idThis].color = color;
         guardarLocalStorage(paleta);
     }
 }
@@ -125,30 +127,57 @@ function respaldarLocalStorage() {
     if (localStorage.getItem("paleta")) {
         let paleta = JSON.parse(localStorage.getItem("paleta"));
 
-        if (localStorage.getItem("paletas-guardadas")) {
-            paletasGuardadas = JSON.parse(localStorage.getItem("paletas-guardadas"));
+        if (paleta.hora) {
+            if (localStorage.getItem("paletas-guardadas")) {
+                paletasGuardadas = JSON.parse(localStorage.getItem("paletas-guardadas"));
+            }
+
+            $(".contenedor-colores").children().remove();
+
+            for (const color of paleta.paleta) {
+                $(".contenedor-colores").append(contenedorColorDefault.clone());
+                let contenedorColor = $(".contenedor-colores").children();
+
+                let colorHex = contenedorColor.find(".color-hex");
+                let iconos = contenedorColor.find(".opciones");
+
+                $(contenedorColor[color.id]).css("background-color", color.color);
+                $(colorHex[color.id]).text(color.color);
+
+                detectaColor(color.color, $(colorHex[color.id]), $(iconos[color.id]));
+
+                /* ASIGNANDO DATA-ID */
+
+                $(".contenedor-color:last").attr("data-id", $(".contenedor-color:last").index());
+            }
+
+            asignarNombre(paleta.paleta);
+        } else {
+            if (localStorage.getItem("paletas-guardadas")) {
+                paletasGuardadas = JSON.parse(localStorage.getItem("paletas-guardadas"));
+            }
+
+            $(".contenedor-colores").children().remove();
+
+            for (const color of paleta) {
+                $(".contenedor-colores").append(contenedorColorDefault.clone());
+                let contenedorColor = $(".contenedor-colores").children();
+
+                let colorHex = contenedorColor.find(".color-hex");
+                let iconos = contenedorColor.find(".opciones");
+
+                $(contenedorColor[color.id]).css("background-color", color.color);
+                $(colorHex[color.id]).text(color.color);
+
+                detectaColor(color.color, $(colorHex[color.id]), $(iconos[color.id]));
+
+                /* ASIGNANDO DATA-ID */
+
+                $(".contenedor-color:last").attr("data-id", $(".contenedor-color:last").index());
+            }
+
+            asignarNombre(paleta);
         }
-
-        $(".contenedor-colores").children().remove();
-
-        for (const color of paleta) {
-            $(".contenedor-colores").append(contenedorColorDefault.clone());
-            let contenedorColor = $(".contenedor-colores").children();
-
-            let colorHex = contenedorColor.find(".color-hex");
-            let iconos = contenedorColor.find(".opciones");
-
-            $(contenedorColor[color.id]).css("background-color", color.color);
-            $(colorHex[color.id]).text(color.color);
-
-            detectaColor(color.color, $(colorHex[color.id]), $(iconos[color.id]));
-
-            /* ASIGNANDO DATA-ID */
-
-            $(".contenedor-color:last").attr("data-id", $(".contenedor-color:last").index());
-        }
-
-        asignarNombre(paleta);
     } else {
         asignarNombre([{ id: 0, color: "#FFFFFF" }]);
     }
@@ -252,6 +281,17 @@ $(".fa-palette").on("click", function () {
         paleta.push({ id: count++, color: $(color).text() });
     }
 
+    /* FOOTER */
+
+    /* if (localStorage.getItem("paleta")) {
+        let paleta = JSON.parse(localStorage.getItem("paleta"));
+        for (let color of paleta) {
+            $(".footer").css("background-color", color.color);
+        }
+        let textoFooter = $(".footer").find("div");
+        console.log(textoFooter);
+    } */
+
     asignarNombre(paleta);
     guardarLocalStorage(paleta);
 });
@@ -327,8 +367,6 @@ $(".fa-fill").on("click", function () {
                     imageUrl: result.value.image.named,
                 });
             }
-        } else {
-            console.log("no");
         }
     });
 });
@@ -342,9 +380,9 @@ $(".fa-save").on("click", function () {
 
     if (localStorage.getItem("paleta")) {
         if (localStorage.getItem("email") && localStorage.getItem("password") && localStorage.getItem("check")) {
-            if (paletasGuardadas.length < 10) {
+            if (paletasGuardadas.length <= 10) {
                 if (localStorage.getItem("indice")) {
-                    paletasGuardadas[localStorage.getItem("indice")] = paleta;
+                    paletasGuardadas[localStorage.getItem("indice")] = { paleta: paleta, hora: obtenerHora() };
                     localStorage.setItem("paletas-guardadas", JSON.stringify(paletasGuardadas));
 
                     const Toast = Swal.mixin({
@@ -506,7 +544,11 @@ $(".contenedor-colores").on("click", ".color-hex", function () {
 
         let paleta = JSON.parse(localStorage.getItem("paleta"));
 
-        asignarNombre(paleta);
+        if (paleta.hora) {
+            asignarNombre(paleta.paleta);
+        } else {
+            asignarNombre(paleta);
+        }
     });
 });
 
@@ -565,7 +607,11 @@ $(".contenedor-colores").on("click", ".fa-dice", function () {
         cambiarLocalStorage(contenedorColor, colorRandomHex);
 
         let paleta = JSON.parse(localStorage.getItem("paleta"));
-        asignarNombre(paleta);
+        if (paleta.hora) {
+            asignarNombre(paleta.paleta);
+        } else {
+            asignarNombre(paleta);
+        }
     } else {
         let paleta = [{ id: contenedorColor.attr("data-id"), color: colorHex.text() }];
         asignarNombre(paleta);
@@ -673,7 +719,11 @@ $(".contenedor-colores").on("click", ".fa-blender", function () {
 
                     let paleta = JSON.parse(localStorage.getItem("paleta"));
 
-                    asignarNombre(paleta);
+                    if (paleta.hora) {
+                        asignarNombre(paleta.paleta);
+                    } else {
+                        asignarNombre(paleta);
+                    }
 
                     /* DETECTAR COLOR */
 
