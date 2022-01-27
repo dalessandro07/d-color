@@ -16,7 +16,7 @@ Sortable.create(lista, {
     /* ESTILO AL HACER DRAG */
     dragClass: "drag",
     /* HANDLE */
-    handle: ".contenedor-hex",
+    handle: ".fa-arrows-alt-h",
     /* ELEMENTOS IGNORADOS */
     filter: ".color-hex",
     /* CUANDO SE SUELTA */

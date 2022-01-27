@@ -149,7 +149,6 @@ input:focus {
     align-items: center;
     justify-content: center;
     height: 35%;
-    cursor: move;
 }
 
 .color-name {
@@ -203,6 +202,13 @@ input:focus {
     position: absolute;
     align-self: center;
     margin: 0 1rem;
+}
+
+.fa-arrows-alt-h {
+    margin: 1rem auto;
+    width: 50%;
+    cursor: none !important;
+    cursor: move !important;
 }
 
 .mixing {
