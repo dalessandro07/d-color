@@ -137,43 +137,52 @@
             </main>
 
             <footer class="footer">
-                <div class="container flex-padre-footer">
-                    <div class="contenedor-enlaces h-100 d-flex flex-column justify-content-center">
-                        <h3 class="titulo-footer m-0">Enlaces</h3>
-                        <ul class="lista-enlaces">
-                            <li class="lista-item nueva-paleta nav-link">Nueva Paleta</li>
-                            <li class="lista-item paletas-guardadas-link nav-link">Paletas Guardadas</li>
-                            <li class="lista-item register nav-link">Registrarse</li>
-                        </ul>
-                        <h3 class="titulo-footer m-0">Redes</h3>
-                        <ul class="lista-enlaces" style="list-style: none">
-                            <li class="lista-item nueva-paleta">
-                                <a target="_blank" class="nav-link lista-item" href="https://www.linkedin.com/in/alessandro-rios/"><i class="me-2 fab fa-linkedin-in"></i>LinkedIn</a>
-                            </li>
-                            <li class="lista-item paletas-guardadas-link">
-                                <a target="_blank" class="nav-link lista-item" href="https://github.com/dalessandro07"><i class="me-2 fab fa-github"></i>Github</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="separador"></div>
-                    <div class="contenedor-contacto h-100 d-flex flex-column justify-content-center">
-                        <h3 class="titulo-footer">Contacto</h3>
-                        <b style="color: var(--bs-gray-100)">¡Déjame un feedback!</b>
-                        <div class="contenedor-form">
-                            <form action="https://formsubmit.co/dev.alessandro@hotmail.com" method="POST">
-                                <div class="d-flex flex-column">
-                                    <input class="form-control mt-2" type="text" name="name" required minlength="3" placeholder="Nombre..." />
-                                    <textarea minlength="6" required class="form-control mt-2 mb-2" placeholder="Mensaje..." name="feedback" id="" cols="10" rows="5" style="resize: none"></textarea>
-                                    <input type="hidden" name="_subject" value="Nuevo feedback!" />
-                                    <input type="hidden" name="_captcha" value="false" />
-                                    <button class="btn btn-warning enviarFeedback">Enviar</button>
-                                </div>
-                            </form>
+                <div class="flex-padre-footer container-fluid">
+                    <div class="items-footer contenedor-enlaces-padre h-100 d-flex flex-column justify-content-center">
+                        <div class="contenedor-enlaces">
+                            <h3 class="titulo-footer m-0">Enlaces</h3>
+                            <ul class="lista-enlaces">
+                                <li class="lista-item nueva-paleta nav-link">Nueva Paleta</li>
+                                <li class="lista-item paletas-guardadas-link nav-link">Paletas Guardadas</li>
+                                <li class="lista-item register nav-link">Registrarse</li>
+                            </ul>
+                        </div>
+                        <div class="contenedor-redes">
+                            <h3 class="titulo-footer m-0">Redes</h3>
+                            <ul class="lista-enlaces" style="list-style: none">
+                                <li class="lista-item">
+                                    <a target="_blank" class="nav-link lista-item" href="https://www.linkedin.com/in/alessandro-rios/"><i class="me-2 fab fa-linkedin-in"></i>LinkedIn</a>
+                                </li>
+                                <li class="lista-item">
+                                    <a target="_blank" class="nav-link lista-item" href="https://github.com/dalessandro07"><i class="me-2 fab fa-github"></i>Github</a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                     <div class="separador"></div>
-                    <div class="contenedor-logo h-100">
-                        <i class="fas fa-palette me-2 icono-footer"></i>
+                    <div class="items-footer contenedor-contacto d-flex flex-column justify-content-between">
+                        <h3 class="titulo-footer">¡Déjame un feedback!</h3>
+                        <div class="contacto-sm">
+                            <div class="contenedor-form">
+                                <form action="https://formsubmit.co/dev.alessandro@hotmail.com" method="POST">
+                                    <div class="d-flex flex-column">
+                                        <input class="form-control mt-2" type="text" name="name" required minlength="3" placeholder="Nombre..." />
+                                        <textarea minlength="6" required class="form-control mt-2 mb-2" placeholder="Mensaje..." name="feedback" id="" cols="10" rows="5" style="resize: none"></textarea>
+                                        <input type="hidden" name="_subject" value="Nuevo feedback!" />
+                                        <input type="hidden" name="_captcha" value="false" />
+                                        <button class="btn btn-warning enviarFeedback">Enviar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="separador"></div>
+                    <div class="items-footer contenedor-logo h-100">
+                        <div class="logo-item">
+                            <h3 class="titulo-footer">D-Color &copy</h3>
+                            <i class="fas fa-palette me-2 icono-footer"></i>
+                            <b style="font-size: 0.75rem; color: var(--bs-gray-100); display: block; margin: 1rem 0">Powered by <a style="color: var(--orange)" href="https://www.linkedin.com/in/alessandro-rios/">Alessandro Rios</a></b>
+                        </div>
                     </div>
                 </div>
             </footer>

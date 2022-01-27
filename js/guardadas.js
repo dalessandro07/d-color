@@ -17,7 +17,7 @@ $(".texto-guardadas").on("click", function () {
     $(".index").fadeIn("fast");
     $(".register-page").fadeOut("fast");
     $(".paletas-guardadas-page").fadeOut("fast");
-    window.location.href = "index.html#paleta-container";
+    window.location.href = "#paleta-container";
 });
 
 /* CAPTURAR DATOS DEL LOCAL_STORAGE */
@@ -122,7 +122,9 @@ if (localStorage.getItem("paletas-guardadas")) {
                     title: "¡No olvides guardar los cambios! 💾",
                 });
 
-                window.scrollTo(1000, document.body.scrollHeight);
+                setTimeout(() => {
+                    window.location.href = "#paleta-container";
+                }, 900);
             } else if (result.isDenied) {
                 let paleta = JSON.parse(localStorage.getItem("paletas-guardadas"));
                 let indice = $(this).index(".paleta-guardada");

@@ -12,6 +12,8 @@ $(".nueva-paleta").click(function () {
     $(".contenedor-paleta").fadeIn("fast");
     $(".register-page").fadeOut("fast");
     $(".paletas-guardadas-page").fadeOut("fast");
+
+    window.location.href = "#paleta-container";
 });
 
 /* SCROLL Y CLICK DERECHO */
@@ -380,7 +382,7 @@ $(".fa-save").on("click", function () {
 
     if (localStorage.getItem("paleta")) {
         if (localStorage.getItem("email") && localStorage.getItem("password") && localStorage.getItem("check")) {
-            if (paletasGuardadas.length <= 10) {
+            if (paletasGuardadas.length <= 30) {
                 if (localStorage.getItem("indice")) {
                     paletasGuardadas[localStorage.getItem("indice")] = { paleta: paleta, hora: obtenerHora() };
                     localStorage.setItem("paletas-guardadas", JSON.stringify(paletasGuardadas));
@@ -457,7 +459,7 @@ $(".fa-save").on("click", function () {
                 });
                 Toast.fire({
                     icon: "error",
-                    title: "¡Sólo puedes guardar 10 paletas!",
+                    title: "¡Sólo puedes guardar 30 paletas!",
                 });
             }
         } else {
