@@ -105,7 +105,7 @@ function cambiarLocalStorage(contenedorColor, colorParam) {
 
         let idThis = $(".contenedor-color").index(contenedorColor);
 
-        paleta.paleta[idThis].color = color;
+        paleta[idThis].color = color;
         guardarLocalStorage(paleta);
     }
 }
@@ -285,14 +285,9 @@ $(".fa-palette").on("click", function () {
 
     /* FOOTER */
 
-    /* if (localStorage.getItem("paleta")) {
-        let paleta = JSON.parse(localStorage.getItem("paleta"));
-        for (let color of paleta) {
-            $(".footer").css("background-color", color.color);
-        }
-        let textoFooter = $(".footer").find("div");
-        console.log(textoFooter);
-    } */
+    for (let color of paleta) {
+        $(".icono-footer").css("color", color.color);
+    }
 
     asignarNombre(paleta);
     guardarLocalStorage(paleta);
@@ -459,7 +454,7 @@ $(".fa-save").on("click", function () {
                 });
                 Toast.fire({
                     icon: "error",
-                    title: "¡Sólo puedes guardar 30 paletas!",
+                    title: "¡Sólo puedes guardar 10 paletas!",
                 });
             }
         } else {
@@ -480,6 +475,7 @@ $(".fa-save").on("click", function () {
             });
             setTimeout(() => {
                 $(".index").fadeOut("fast");
+                $(".contenedor-paleta").fadeOut("fast");
                 $(".register-page").fadeIn("fast");
                 $(".paletas-guardadas-page").fadeOut("fast");
             }, 2000);

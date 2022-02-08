@@ -96,7 +96,7 @@ if (localStorage.getItem("paletas-guardadas")) {
                 let indice = $(".paleta-guardada").index($(this));
 
                 localStorage.setItem("indice", indice);
-                localStorage.setItem("paleta", JSON.stringify(paleta[indice]));
+                localStorage.setItem("paleta", JSON.stringify(paleta[indice].paleta));
 
                 $(".index").fadeIn("fast");
                 $(".contenedor-paleta").fadeIn("fast");
